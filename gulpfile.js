@@ -3,8 +3,8 @@
 // add gulp packages
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
-    coffee = require('gulp-coffee'),
-    jshint = require('gulp-jshint'),
+    // coffee = require('gulp-coffee'),
+    // jshint = require('gulp-jshint'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     prettify = require('gulp-html-prettify'),
@@ -16,7 +16,10 @@ var gulp  = require('gulp'),
 gulp.task('default', ['server', 'watch']);
 
 // build, setup server, and watch for changes
-gulp.task('test', ['jade', 'sass', 'server', 'watch']);
+gulp.task('test', ['build', 'server', 'watch']);
+
+// build to ./test/
+gulp.task('build', ['jade', 'sass']);
 
 // watch for changes and compile them
 gulp.task('watch', function() {
