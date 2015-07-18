@@ -11,8 +11,21 @@ var gulp  = require('gulp'),
     server = require('gulp-server-livereload');
 
 // create a default task and just log a message
-gulp.task('log', function() {
-  return gutil.log('Gulp is running!');
+gulp.task('default', ['jade', 'sass', 'server', 'watch']);
+
+gulp.task('watch', function() {
+  gutil.log('Gulp is running!');
+
+  var jadew = gulp.watch('./src/jade/*.jade', ['jade']);
+  jadew.on('change', function(event) {
+    gutil.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  });
+
+  var sassw = gulp.watch('./src/sass/*.sass', ['sass']);
+  sassw.on('change', function(event) {
+    gutil.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  });
+
 });
 
 gulp.task('jade', function() {
@@ -29,7 +42,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('server', function() {
-  gulp.src('test')
+  gulp.src('./test/')
     .pipe(server({
       livereload: true
     }));
