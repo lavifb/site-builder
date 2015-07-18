@@ -11,7 +11,8 @@ var gulp  = require('gulp'),
     server = require('gulp-server-livereload');
 
 // create a default task and just log a message
-gulp.task('default', ['jade', 'sass', 'server', 'watch']);
+gulp.task('default', ['server', 'watch']);
+gulp.task('test', ['jade', 'sass', 'server', 'watch']);
 
 gulp.task('watch', function() {
   gutil.log('Gulp is running!');
