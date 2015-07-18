@@ -1,0 +1,8 @@
+.DS_Store
+
+# Node packages
+node_modules/
+
+# Ignore output and test
+build/
+test/
