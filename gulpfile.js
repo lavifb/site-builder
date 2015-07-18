@@ -10,10 +10,15 @@ var gulp  = require('gulp'),
     prettify = require('gulp-html-prettify'),
     server = require('gulp-server-livereload');
 
-// create a default task and just log a message
+/* Add tasks */
+
+// setup server and watch for changes
 gulp.task('default', ['server', 'watch']);
+
+// build, setup server, and watch for changes
 gulp.task('test', ['jade', 'sass', 'server', 'watch']);
 
+// watch for changes and compile them
 gulp.task('watch', function() {
   gutil.log('Gulp is running!');
 
@@ -29,6 +34,14 @@ gulp.task('watch', function() {
 
 });
 
+// run livereloading server at test/
+gulp.task('server', function() {
+  return gulp.src('./test/')
+    .pipe(server({
+      livereload: true
+    }));
+});
+
 gulp.task('jade', function() {
   return gulp.src('./src/jade/[^_]*.jade')
     .pipe(jade())
@@ -37,14 +50,7 @@ gulp.task('jade', function() {
 });
 
 gulp.task('sass', function () {
-  gulp.src('./src/sass/[^_]*.sass')
+  return gulp.src('./src/sass/[^_]*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./test/css'));
-});
-
-gulp.task('server', function() {
-  gulp.src('./test/')
-    .pipe(server({
-      livereload: true
-    }));
 });
