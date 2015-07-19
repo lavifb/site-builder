@@ -10,7 +10,6 @@ var gulp  = require('gulp'),
     prettify = require('gulp-html-prettify'),
     server = require('gulp-server-livereload');
 
-var spawn = require('child_process').spawn;
 /* Add tasks */
 
 // setup server and watch for changes
@@ -24,8 +23,6 @@ gulp.task('build', ['jade', 'sass']);
 
 // watch for changes and compile them
 gulp.task('watch', function() {
-  gutil.log('Gulp is running!');
-
   var jadew = gulp.watch('./src/jade/*.jade', ['jade']);
   jadew.on('change', function(event) {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling jade...');
@@ -36,11 +33,8 @@ gulp.task('watch', function() {
     gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', compiling sass...');
   });
 
-  var gulpw = gulp.watch('./gulpfile.js', ['reload-gulp']);
-  gulpw.on('change', function(event) {
-    gutil.log('File ' + event.path.substr(event.path.lastIndexOf('/')+1) + ' was ' + event.type + ', reloading gulp...');
-  });
-
+  gutil.log('Gulp is watching!');
+  return ;
 });
 
 // run livereloading server at test/
@@ -69,8 +63,3 @@ gulp.task('sass', function () {
 //     .pipe(coffee())
 //     .pipe(gulp.dest('./test/js'));
 // });
-
-gulp.task('reload-gulp', function() {
-  spawn('gulp', [], {stdio: 'inherit'});
-  process.exit();
-});
