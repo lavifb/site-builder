@@ -3,8 +3,8 @@
 // add gulp packages
 var gulp  = require('gulp'),
     gutil = require('gulp-util'),
-    // coffee = require('gulp-coffee'),
-    // jshint = require('gulp-jshint'),
+    coffee = require('gulp-coffee'),
+    coffeelint = require('gulp-coffeelint'),
     jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     prettify = require('gulp-html-prettify'),
@@ -19,7 +19,7 @@ gulp.task('default', ['server', 'watch']);
 gulp.task('test', ['build', 'server', 'watch']);
 
 // build to ./test/
-gulp.task('build', ['jade', 'sass']);
+gulp.task('build', ['jade', 'sass', 'coffee']);
 
 // watch for changes and compile them
 gulp.task('watch', function() {
@@ -58,8 +58,10 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./test/css'));
 });
 
-// gulp.task('coffee', function () {
-//   return gulp.src('./src/coffee/[^_]*.coffee')
-//     .pipe(coffee())
-//     .pipe(gulp.dest('./test/js'));
-// });
+gulp.task('coffee', function () {
+  return gulp.src('./src/coffee/[^_]*.coffee')
+    .pipe(coffee())
+    .pipe(coffeelint())
+    .pipe(coffeelint.reporter())
+    .pipe(gulp.dest('./test/js'));
+});
