@@ -45,6 +45,7 @@ gulp.task('server', function() {
     }));
 });
 
+// compile jade
 gulp.task('jade', function() {
   return gulp.src('./src/jade/[^_]*.jade')
     .pipe(jade())
@@ -52,12 +53,14 @@ gulp.task('jade', function() {
     .pipe(gulp.dest('./test/'));
 });
 
+// compile sass
 gulp.task('sass', function () {
   return gulp.src('./src/sass/[^_]*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./test/css'));
 });
 
+// compile coffee
 gulp.task('coffee', function () {
   return gulp.src('./src/coffee/[^_]*.coffee')
     .pipe(coffee())
