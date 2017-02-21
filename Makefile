@@ -25,14 +25,13 @@ clean-prod:
 	rm $(PUB)/css/*
 	rm $(PUB)/js/*
 
-prod: html-prod css-prod
+prod: html-prod css-prod js-prod
 
-test-prod: html css
+test-prod: html css js
 
 .PHONY: test
 test:
 	@echo "Test"
-	# @echo $(foreach dir, $(OUTDIRS),$(dir)/index.html)
 
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 html-prod: $(patsubst $(PUG)/%.pug, $(PUB)/%.html, $(wildcard $(PUG)/[^_]*.pug))
