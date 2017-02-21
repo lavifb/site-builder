@@ -6,6 +6,9 @@ node_modules/
 # Bower packages
 bower_components/
 
+# Sass cache
+.sass-cache
+
 # Ignore output and test
 public/
 test/
