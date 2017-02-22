@@ -1,4 +1,4 @@
-(function() {
-  alert('Loaded!');
-
-}).call(this);
+window.onload = function() {
+	
+	document.getElementById("yes").innerText = "Even Now!";
+}

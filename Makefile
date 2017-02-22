@@ -1,4 +1,6 @@
 # Makefile for site building
+#
+# Uses fswatch to watch for file changes and npm's live-server to serve and reload changes automatically
 
 # Dirs
 SASS := src/sass
@@ -32,6 +34,12 @@ clean-prod:
 
 prod: html-prod css-prod js-prod
 test-prod: html css js
+
+watch:
+	fswatch -0 src | xargs -0 -n1 -I{} make
+
+serve:
+	live-server test
 
 .PHONY: test
 test:
