@@ -6,7 +6,8 @@
   "devDependencies": {
     "pug": "^2.0.0-beta11",
     "pug-cli": "^1.0.0-alpha6",
-    "typescript": "^2.1.6"
+    "typescript": "^2.1.6",
+    "uglify-js": "^2.7.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

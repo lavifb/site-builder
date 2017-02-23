@@ -1,4 +1,4 @@
 window.onload = function() {
-	
-	document.getElementById("yes").innerText = "Even Now!";
+	// change text after 1 second	
+	setTimeout(() => document.getElementById("yes").innerText = "Even Now!", 1000);
 }

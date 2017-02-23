@@ -80,4 +80,4 @@ $(TEST)/js/%.js: $(TSC)/%.ts
 
 $(PUB)/js/%.js: $(TSC)/%.ts
 	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
-	@tsc --outFile $@ $<
+	@tsc --outFile /dev/stdout $< | uglifyjs -o $@
