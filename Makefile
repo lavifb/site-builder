@@ -22,6 +22,14 @@ NC   =\033[0m
 
 default: test-prod
 
+setup:
+	@mkdir -p $(TEST)
+	@mkdir -p $(TEST)/css
+	@mkdir -p $(TEST)/js
+	@mkdir -p $(PUB)
+	@mkdir -p $(PUB)/css
+	@mkdir -p $(PUB)/js
+
 clean:
 	-@rm $(TEST)/*.html
 	-@rm $(TEST)/css/*
