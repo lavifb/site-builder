@@ -30,7 +30,7 @@ setup:
 	@mkdir -p $(PUB)/css
 	@mkdir -p $(PUB)/js
 	@mkdir -p $(PUB)/img
-	@ln -s ../$(PUB)/img $(TEST)/img
+	@ln -sF ../$(PUB)/img $(TEST)/img
 
 clean:
 	-@rm $(TEST)/*.html
