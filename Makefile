@@ -43,7 +43,7 @@ serve:
 
 .PHONY: test
 test:
-	@echo "Test"
+	live-server test& fswatch -0 src | xargs -0 -n1 -I{} make
 
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 html-prod: $(patsubst $(PUG)/%.pug, $(PUB)/%.html, $(wildcard $(PUG)/[^_]*.pug))
