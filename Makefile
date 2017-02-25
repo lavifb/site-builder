@@ -58,8 +58,8 @@ test:
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 html-prod: $(patsubst $(PUG)/%.pug, $(PUB)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 
-css: $(patsubst $(SASS)/%.sass, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.sass))
-css-prod: $(patsubst $(SASS)/%.sass, $(PUB)/css/%.css, $(wildcard $(SASS)/[^_]*.sass))
+css: $(patsubst $(SASS)/%.sass, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.sass)) $(patsubst $(SASS)/%.scss, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.scss))
+css-prod: $(patsubst $(SASS)/%.sass, $(PUB)/css/%.css, $(wildcard $(SASS)/[^_]*.sass)) $(patsubst $(SASS)/%.scss, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.scss))
 
 js: $(patsubst $(TSC)/%.ts, $(TEST)/js/%.js, $(wildcard $(TSC)/[^_]*.ts))
 js-prod: $(patsubst $(TSC)/%.ts, $(PUB)/js/%.js, $(wildcard $(TSC)/[^_]*.ts))
@@ -75,11 +75,11 @@ $(PUB)/%.html: $(PUG)/%.pug
 	@pug --silent -o $(@D) $<
 
 # Compile sass to css
-$(TEST)/css/%.css: $(SASS)/%.sass
+$(TEST)/css/%.css: $(SASS)/%.s[ac]ss
 	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@sass $< $@
 
-$(PUB)/css/%.css: $(SASS)/%.sass
+$(PUB)/css/%.css: $(SASS)/%.s[ac]ss
 	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@sass --style compressed --sourcemap=none $< $@
 
