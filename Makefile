@@ -11,6 +11,7 @@ TEST := test
 PUB  := public
 OUTDIRS = $(TEST) $(PUB)
 
+SHELL := /bin/zsh
 export PATH := node_modules/.bin:$(PATH)
 
 # ANSI Colors
@@ -45,15 +46,15 @@ clean-prod:
 prod: html-prod css-prod js-prod
 test-prod: html css js
 
-watch:
-	fswatch -0 src | xargs -0 -n1 -I{} make
-
-serve:
-	live-server test
-
-.PHONY: test
-test:
-	live-server test& fswatch -0 src | xargs -0 -n1 -I{} make
+# watch:
+# 	fswatch -0 src | xargs -0 -n1 -I{} make
+#
+# serve:
+# 	live-server test
+#
+# .PHONY: test
+# test:
+# 	live-server test& fswatch -0 src | xargs -0 -n1 -I{} make
 
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 html-prod: $(patsubst $(PUG)/%.pug, $(PUB)/%.html, $(wildcard $(PUG)/[^_]*.pug))
@@ -67,27 +68,27 @@ js-prod: $(patsubst $(TSC)/%.ts, $(PUB)/js/%.js, $(wildcard $(TSC)/[^_]*.ts))
 # Compile pug to html
 # $(foreach dir, $(OUTDIRS),$(dir)/%.html): $(PUG)/%.pug
 $(TEST)/%.html: $(PUG)/%.pug
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@pug --pretty --silent -o $(@D) $<
 
 $(PUB)/%.html: $(PUG)/%.pug
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@pug --silent -o $(@D) $<
 
 # Compile sass to css
 $(TEST)/css/%.css: $(SASS)/%.s[ac]ss
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
-	@sass $< $@
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@node-sass -q $< $@
 
 $(PUB)/css/%.css: $(SASS)/%.s[ac]ss
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
-	@sass --style compressed --sourcemap=none $< $@
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@node-sass -q $< $@
 
 # Compile typescript to js
 $(TEST)/js/%.js: $(TSC)/%.ts
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@tsc --outFile $@ --sourcemap $<
 
 $(PUB)/js/%.js: $(TSC)/%.ts
-	@echo "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
+	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
 	@tsc --outFile /dev/stdout $< | uglifyjs -o $@

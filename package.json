@@ -4,10 +4,12 @@
   "description": "A website builder with templating using MAKE",
   "dependencies": {},
   "devDependencies": {
-    "pug": "^2.0.0-beta11",
+    "live-server": "^1.2.0",
+    "node-sass": "^4.7.2",
+    "pug": "^2.0.0-rc.4",
     "pug-cli": "^1.0.0-alpha6",
-    "typescript": "^2.1.6",
-    "uglify-js": "^2.7.5"
+    "typescript": "^2.7.2",
+    "uglify-js": "^3.3.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
