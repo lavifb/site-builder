@@ -46,9 +46,9 @@ clean-prod:
 prod: html-prod css-prod js-prod
 test-prod: html css js
 
-# watch:
-# 	fswatch -0 src | xargs -0 -n1 -I{} make
-#
+watch:
+	watchman-make -p 'src/**/*' -t test-prod
+
 # serve:
 # 	live-server test
 #
