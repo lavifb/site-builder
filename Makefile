@@ -55,10 +55,11 @@ watch:
 .PHONY: serve
 serve:
 	live-server test
-#
-# .PHONY: test
-# test:
-# 	live-server test& fswatch -0 src | xargs -0 -n1 -I{} make
+
+.PHONY: test
+test: test-prod
+	live-server test &
+	watchman-make -p 'src/**/*' -t test-prod
 
 .PHONY: html html-prod
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
