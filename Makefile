@@ -58,8 +58,7 @@ serve:
 
 .PHONY: test
 test: test-prod
-	live-server test &
-	watchman-make -p 'src/**/*' -t test-prod
+	live-server test & watchman-make -p 'src/**/*' -t test-prod
 
 .PHONY: html html-prod
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
