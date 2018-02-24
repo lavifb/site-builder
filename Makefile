@@ -23,6 +23,7 @@ NC   =\033[0m
 
 default: test-prod
 
+.PHONY: setup
 setup:
 	@mkdir -p $(TEST)
 	@mkdir -p $(TEST)/css
@@ -33,35 +34,41 @@ setup:
 	@mkdir -p $(PUB)/img
 	@ln -shf ../$(PUB)/img $(TEST)/img
 
+.PHONY: clean clean-prod
 clean:
 	-@rm $(TEST)/*.html
 	-@rm $(TEST)/css/*
 	-@rm $(TEST)/js/*
-
 clean-prod:
 	-@rm $(PUB)/*.html
 	-@rm $(PUB)/css/*
 	-@rm $(PUB)/js/*
 
+.PHONY: prod test-prod
 prod: html-prod css-prod js-prod
 test-prod: html css js
 
+.PHONY: watch
 watch:
 	watchman-make -p 'src/**/*' -t test-prod
 
-# serve:
-# 	live-server test
+.PHONY: serve
+serve:
+	live-server test
 #
 # .PHONY: test
 # test:
 # 	live-server test& fswatch -0 src | xargs -0 -n1 -I{} make
 
+.PHONY: html html-prod
 html: $(patsubst $(PUG)/%.pug, $(TEST)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 html-prod: $(patsubst $(PUG)/%.pug, $(PUB)/%.html, $(wildcard $(PUG)/[^_]*.pug))
 
+.PHONY: css css-prod
 css: $(patsubst $(SASS)/%.sass, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.sass)) $(patsubst $(SASS)/%.scss, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.scss))
 css-prod: $(patsubst $(SASS)/%.sass, $(PUB)/css/%.css, $(wildcard $(SASS)/[^_]*.sass)) $(patsubst $(SASS)/%.scss, $(TEST)/css/%.css, $(wildcard $(SASS)/[^_]*.scss))
 
+.PHONY: js js-prod
 js: $(patsubst $(TSC)/%.ts, $(TEST)/js/%.js, $(wildcard $(TSC)/[^_]*.ts))
 js-prod: $(patsubst $(TSC)/%.ts, $(PUB)/js/%.js, $(wildcard $(TSC)/[^_]*.ts))
 
