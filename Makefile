@@ -85,7 +85,7 @@ $(PUB)/%.html: $(PUG)/%.pug
 # Compile sass to css
 $(TEST)/css/%.css: $(SASS)/%.s[ac]ss
 	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
-	@node-sass -q $< $@
+	@node-sass -q --source-map $< $@
 
 $(PUB)/css/%.css: $(SASS)/%.s[ac]ss
 	@echo -e "Compiling $(BLUE)$<$(NC) to $(GREEN)$@$(NC)"
